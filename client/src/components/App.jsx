@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import polyline from '@mapbox/polyline';
-// import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-// import 'mapbox-gl/dist/mapbox-gl.css';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import ActivityList from './ActivityList.jsx';
 
 const convertTime = (val) => {
   let time = new Date(val * 1000).toISOString().substr(11, 8);
@@ -19,10 +20,14 @@ const convertTime = (val) => {
 }
 
 function App(props) {
-  console.log(props.data);
+  // console.log(props.data);
   const [isLoading, setIsLoading] = useState(true);
   const [activities, setActivities] = useState([]);
   const data = props.data
+
+  // const Map = ReactMapboxGl({
+  //   accessToken:
+  // });
 
 
 
@@ -30,15 +35,22 @@ function App(props) {
   return (
     <div className="App">
       <h1>Straba</h1>
-      {data.map((item, i) =>
-        <div key={i}>
-          <div>{item.name}</div>
-          <div>{item.type}</div>
-          <div>{`${(item.distance / 1609.34).toFixed(2)} mi`}</div>
-          <div>{convertTime(item.elapsed_time)}</div>
-          <div>{item.average_speed}</div>
-        </div>
-      )}
+      <ActivityList activities={data}/>
+      {/* <Map
+        style='mapbox://styles/mapbox/outdoors-v11'
+        containerStyle={{
+          height: '50vh',
+          width: '50vw'
+        }}
+        center={[-122.653695, 38.440796]}
+        // pitch={[30]}
+      >
+      <Layer type='symbol' id='marker' layout={{'icon-image': '../../assets/svgs/marker.svg'}}>
+        <Feature coordinates={[-122.653695, 38.440796]}/>
+      </Layer>
+
+      </Map> */}
+
 
     </div>
   );
