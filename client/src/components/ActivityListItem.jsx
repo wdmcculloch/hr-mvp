@@ -1,6 +1,8 @@
 import React from 'react';
+
 const dateTime = (date) => {
-  console.log(date);
+  var d = new Date(date);
+  console.log(d);
 }
 function ActivityListItem(props) {
   console.log(props.activity);
@@ -9,14 +11,16 @@ function ActivityListItem(props) {
   return (
     <div className='item-container'>
       <div className='item-top'>
-        <div>profile pic</div>
-        <div id='name'>Will McCulloch</div>
-        <div id='date-time-loc'>{data.start_date_local}</div>
+        <img src='../../client/assets/user.png'/>
+        <div>
+          <div id='name'>Will McCulloch</div>
+          <div id='date-time-loc'>{data.start_date_local}</div>
+        </div>
       </div>
       <div className='item-bottom'>
-        <div>activity icon</div>
-        <div>activity name,
-          activity data
+        <img src='../../client/assets/user.png'/>
+        <div>
+
         </div>
       </div>
     </div>

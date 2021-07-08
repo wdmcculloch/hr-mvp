@@ -28,13 +28,38 @@ function App(props) {
   // const Map = ReactMapboxGl({
   //   accessToken:
   // });
+  //get new access token
+  //Strava Credentials
 
+  //  use current access token to call all activities
+  function getActivities(e){
+    e.preventDefault();
+    // console.log(callActivities + access)
 
+    axios.get(callActivities + access)
+      .then(data => setActivities(data.data), setIsLoading(prev => !prev))
+      .then(() => { console.log('activities', activities); })
+      .catch(e => console.log(e))
+  }
+
+  function load(e) {
+    e.preventDefault();
+
+    axios.post('/load')
+      .then(() => {
+        console.log('success');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
 
   return (
     <div className="App">
       <h1>Straba</h1>
+      <button onClick={load}>Load</button>
+      <button onClick={getActivities}>CONNECT</button>
       <ActivityList activities={data}/>
       {/* <Map
         style='mapbox://styles/mapbox/outdoors-v11'

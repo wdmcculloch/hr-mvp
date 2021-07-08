@@ -1,0 +1,37 @@
+two collections
+
+activities
+last connect
+
+activities
+
+RUN
+id: 5565898397
+name: "Evening Run"
+type: "Run"
+"trainer" : false,
+"manual" : true,
+
+
+distance: 3229.2
+start_date_local: "2021-07-02T19:56:07Z"
+
+average_speed: 3.521
+"max_speed" : 0,
+
+
+average_heartrate: 166.3
+max_heartrate: 186
+
+elapsed_time: 931
+moving_time: 917
+
+elev_high: 62.5
+elev_low: 55.8
+total_elevation_gain: 6.6
+
+end_latlng: (2) [38.45081, -122.697376]
+start_latlng: (2) [38.452763, -122.696312]
+map: {id: "a5565898397", summary_polyline: "whuiF~b{kVXUVKBSBEB@x@n@dExDt@z@@LI\\Uh@Sp@u@fBa@z@…jApARPRXZPdCbCBf@?bAObBUfAy@vCKt@IlACxCDr@\\~CCLCB", resource_state: 2}
+
+
