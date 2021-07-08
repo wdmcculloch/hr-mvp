@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import polyline from '@mapbox/polyline';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import ActivityList from './ActivityList.jsx';
+import MapModal from './MapModal.jsx';
 import config from '../../../config.js';
 
 
@@ -22,9 +21,11 @@ const convertTime = (val) => {
   }
 }
 
+
 function App(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [activities, setActivities] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     axios.get('/all')
@@ -52,13 +53,20 @@ function App(props) {
       .catch((err) => { console.log(err); })
   }
 
+  function handleModal(e) {
+    e.preventDefault();
+    setShowModal(!showModal);
+  }
+
 
   return (
     <div className="App">
       <h1>Straba</h1>
       {/* <button onClick={load}>Load</button> */}
       {/* <button onClick={getActivities}>CONNECT</button> */}
-      <ActivityList activities={activities}/>
+      <ActivityList activities={activities} modal={handleModal}/>
+      {showModal ? <div id='modal-bg'></div> : null}
+      {showModal ? <MapModal modal={handleModal}/> : null}
     </div>
   );
 }
@@ -68,8 +76,8 @@ export default App;
 // const Map = ReactMapboxGl({
   //   accessToken:
   // });
-  //get new access token
-  //Strava Credentials
+
+
 
   {/* <Map
         style='mapbox://styles/mapbox/outdoors-v11'

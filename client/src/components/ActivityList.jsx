@@ -5,7 +5,7 @@ function ActivityList (props) {
   let data = props.activities;
 
   const listItems = data.map((activity) =>
-    <ActivityListItem  key={activity.id} activity={activity}/>
+    <ActivityListItem  key={activity.id} activity={activity} modal={props.modal}/>
   );
   return (
     <div className='feed'>

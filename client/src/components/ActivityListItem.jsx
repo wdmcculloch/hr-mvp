@@ -1,4 +1,7 @@
 import React from 'react';
+import routeImg from './assets/sample-route.png';
+console.log(routeImg);
+
 
 function tConvert (time) {
   // Check correct time format and split into components
@@ -82,6 +85,8 @@ function ActivityListItem(props) {
     <div>{`${Math.ceil(data.total_elevation_gain * 3.28084)} ft`}</div>;
 
   return (
+    <div className='container'>
+
     <div className='item-container'>
       <div className='item-top'>
         <div>
@@ -101,6 +106,9 @@ function ActivityListItem(props) {
         </div>
       </div>
     </div>
+    <img src={routeImg} onClick={props.modal}/>
+    </div>
+
   )
 }
 
