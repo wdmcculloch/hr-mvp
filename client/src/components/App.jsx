@@ -4,6 +4,9 @@ import polyline from '@mapbox/polyline';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import ActivityList from './ActivityList.jsx';
+import config from '../../../config.js';
+
+
 
 const convertTime = (val) => {
   let time = new Date(val * 1000).toISOString().substr(11, 8);
@@ -20,48 +23,55 @@ const convertTime = (val) => {
 }
 
 function App(props) {
-  // console.log(props.data);
   const [isLoading, setIsLoading] = useState(true);
   const [activities, setActivities] = useState([]);
-  const data = props.data
 
-  // const Map = ReactMapboxGl({
-  //   accessToken:
-  // });
-  //get new access token
-  //Strava Credentials
+  useEffect(() => {
+    axios.get('/all')
+      .then((act) => {
+        setActivities(act.data);
+      })
+      .catch(e => console.log(e));
+  }, [])
 
   //  use current access token to call all activities
   function getActivities(e){
     e.preventDefault();
-    // console.log(callActivities + access)
-
-    axios.get(callActivities + access)
-      .then(data => setActivities(data.data), setIsLoading(prev => !prev))
-      .then(() => { console.log('activities', activities); })
+    //initial auth
+    axios.get(config.auth)
+      .then((result) => {
+        console.log(result)
+      })
       .catch(e => console.log(e))
   }
 
   function load(e) {
     e.preventDefault();
-
     axios.post('/load')
-      .then(() => {
-        console.log('success');
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      .then(() => { console.log('success'); })
+      .catch((err) => { console.log(err); })
   }
 
 
   return (
     <div className="App">
       <h1>Straba</h1>
-      <button onClick={load}>Load</button>
-      <button onClick={getActivities}>CONNECT</button>
-      <ActivityList activities={data}/>
-      {/* <Map
+      {/* <button onClick={load}>Load</button> */}
+      {/* <button onClick={getActivities}>CONNECT</button> */}
+      <ActivityList activities={activities}/>
+    </div>
+  );
+}
+
+export default App;
+
+// const Map = ReactMapboxGl({
+  //   accessToken:
+  // });
+  //get new access token
+  //Strava Credentials
+
+  {/* <Map
         style='mapbox://styles/mapbox/outdoors-v11'
         containerStyle={{
           height: '50vh',
@@ -75,14 +85,6 @@ function App(props) {
       </Layer>
 
       </Map> */}
-
-
-    </div>
-  );
-}
-
-export default App;
-
 
 // get current access token on page load
   // useEffect(() => {

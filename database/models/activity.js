@@ -57,4 +57,7 @@ const loadBulk = (req, res) => {
     });
 }
 
-module.exports = loadBulk;
+module.exports = {
+  loadBulk,
+  Activity
+}
