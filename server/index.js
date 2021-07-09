@@ -17,13 +17,35 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/all', (req, res) => {
   Activity.find({})
     .then(result => {
-      console.log(result);
+      // console.log(result);
       res.send(result).status(200);
     })
     .catch(e => {
       console.log(e);
       res.sendStatus(500);
     })
+})
+
+//save
+app.post('/save', (req, res) => {
+  console.log(req.body);
+  //query find at id
+  //update save
+  Activity.findOne(req.body, async function(err, doc) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(doc)
+      if(doc.saved === true) {
+        doc.saved = false;
+      } else {
+        doc.saved = true;
+      }
+      console.log(doc.saved);
+      await doc.save();
+      res.sendStatus(200);
+    }
+  })
 })
 
 //load

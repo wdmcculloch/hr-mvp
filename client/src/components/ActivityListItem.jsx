@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import routeImg from './assets/sample-route.png';
-console.log(routeImg);
 
 
 function tConvert (time) {
@@ -43,7 +43,6 @@ const dateTime = (d) => {
   time = `${time[0]}:${time[1]} ${time[2]}`;
 
   return `${month[Number(date[1])]} ${Number(date[2])}, ${date[0]} at ${time}`;
-
 }
 
 const round = (num) => {
@@ -83,6 +82,17 @@ function ActivityListItem(props) {
   const type = data.type === 'Run' ?
     <div>{`${mileTime(data.distance, data.moving_time)} /mi`}</div> :
     <div>{`${Math.ceil(data.total_elevation_gain * 3.28084)} ft`}</div>;
+  // console.log(data);
+  function handleSave(e) {
+    e.preventDefault();
+    let params = {
+      _id: e.target.id
+    }
+    axios.post('/save', params)
+      .then((r) => console.log(r))
+      .catch((e) => console.log(e));
+
+  };
 
   return (
     <div className='container'>
@@ -104,6 +114,8 @@ function ActivityListItem(props) {
           <div>{totalTime(data.elapsed_time)}</div>
           {type}
         </div>
+        {console.log(data.saved)}
+        <button id={data._id}onClick={handleSave}>{data.saved ? 'Saved' : 'Save'}</button>
       </div>
     </div>
     <img src={routeImg} onClick={props.modal}/>

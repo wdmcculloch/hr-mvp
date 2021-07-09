@@ -4,6 +4,10 @@ import polyline from '@mapbox/polyline';
 import ActivityList from './ActivityList.jsx';
 import MapModal from './MapModal.jsx';
 import config from '../../../config.js';
+import moment from 'moment';
+
+const timeTest = moment().subtract('days', 28).format();
+console.log(timeTest);
 
 
 
@@ -60,13 +64,39 @@ function App(props) {
 
 
   return (
-    <div className="App">
-      <h1>Straba</h1>
+    <div className="main">
+      <div id='left'>
+        <div id='title'>
+          <h1>Straba</h1>
+
       {/* <button onClick={load}>Load</button> */}
-      {/* <button onClick={getActivities}>CONNECT</button> */}
+      <button onClick={getActivities}>CONNECT</button>
+      <h3>Workout Recommendations</h3>
+      <img src="https://img.icons8.com/color/48/000000/good-quality--v1.png"/>
+
+      <div id='overview'>
+        <div>Last four Weeks</div>
+        <h1>17</h1>
+        <div>Total Activities</div>
+      </div>
+
+      <div id='totals'>
+        <div>
+          Avg Distance / Week: 8.0 mi
+        </div>
+        <div>
+          Avg Time / Week: 1h 4m
+        </div>
+        <div>
+          Avg Runs / Week: 4
+        </div>
+      </div>
+        </div>
+      </div>
       <ActivityList activities={activities} modal={handleModal}/>
       {showModal ? <div id='modal-bg'></div> : null}
       {showModal ? <MapModal modal={handleModal}/> : null}
+
     </div>
   );
 }
